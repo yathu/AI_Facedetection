@@ -1,16 +1,19 @@
-# This is a sample Python script.
+import cv2
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+trained_face_data = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+img = cv2.imread('Robert_Downey_Jr.jpeg')
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+gray_scale_img = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY);
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+face_cordinates = trained_face_data.detectMultiScale(gray_scale_img)
+
+(x,y,w,h) = face_cordinates[0];
+
+cv2.rectangle(img,(x,y),(w,h))
+
+cv2.imshow('image showing...',gray_scale_img)
+
+cv2.waitKey()
+
